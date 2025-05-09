@@ -23,11 +23,16 @@ list(APPEND LIBS SDL3::SDL3)
 
 # Dear ImGui
 CPMAddPackage("gh:ocornut/imgui#v1.91.9b-docking")
-list(APPEND LIBS imgui)
+include_directories(build/debug/_deps/imgui-src)
+include_directories(build/debug/_deps/imgui-src/backends)
+file(GLOB IMGUI_SOURCES "build/debug/_deps/imgui-src/*.cpp")
+list(APPEND IMGUI_SOURCES build/debug/_deps/imgui-src/backends/imgui_impl_sdl3.cpp)
+list(APPEND IMGUI_SOURCES build/debug/_deps/imgui-src/backends/imgui_impl_sdlrenderer3.cpp)
 
 include_directories(src/include)
+file(GLOB PROJECT_SOURCES "src/*.cpp")
 
 ## Executables
-add_executable(coollevelcreator src/main.cpp)
+add_executable(coollevelcreator ${PROJECT_SOURCES} ${IMGUI_SOURCES})
 target_compile_features(coollevelcreator PRIVATE cxx_std_23)
 target_link_libraries(coollevelcreator PRIVATE ${LIBS})

@@ -37,7 +37,7 @@ bool init()
         return false;
     }
 
-    if ( !SDL_CreateWindowAndRenderer("cool game", 1024, 768, SDL_WINDOW_RESIZABLE, &window,
+    if ( !SDL_CreateWindowAndRenderer("cool level creator", 1024, 768, SDL_WINDOW_RESIZABLE, &window,
                                       &renderer) ) {
         SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
         return false;

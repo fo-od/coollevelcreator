@@ -16,13 +16,7 @@ int main()
     while ( running ) {
         SDL_Event event;
         while ( SDL_PollEvent(&event) ) {
-            ImGui_ImplSDL3_ProcessEvent(&event);
-            if ( event.type == SDL_EVENT_QUIT ) {
-                running = false;
-            }
-            if ( event.type == SDL_EVENT_WINDOW_RESIZED ) {
-                SDL_GetWindowSizeInPixels(window, &windowWidth, &windowHeight);
-            }
+            handle_events(&event);
         }
         update();
         render();
@@ -68,6 +62,18 @@ bool init()
 
     return true;
 }
+
+void handle_events( const SDL_Event *event )
+{
+    if ( event->type == SDL_EVENT_QUIT ) {
+        running = false;
+    }
+    if ( event->type == SDL_EVENT_WINDOW_RESIZED ) {
+        SDL_GetWindowSizeInPixels(window, &windowWidth, &windowHeight);
+    }
+    ImGui_ImplSDL3_ProcessEvent(event);
+}
+
 
 void update()
 {
